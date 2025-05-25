@@ -17,9 +17,9 @@ const Weather = () => {
         setWeather(null);
         setError(data.message);
       }
-    } catch () {
-      setError('Error fetching data');
-    }
+    } catch (err) {
+  setError('Error fetching data');
+}
   };
 
   return (
