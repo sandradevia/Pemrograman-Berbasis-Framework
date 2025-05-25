@@ -6,17 +6,16 @@ export default async function handler(req, res) {
       return res.status(400).json({ message: 'City parameter is required' });
     }
 
-    // Contoh: Simulasi response cuaca
+    // Simulasi data cuaca
     const fakeWeatherData = {
       name: city,
       main: { temp: 25 },
       weather: [{ description: 'Cerah' }],
     };
 
-    // Kirim response sukses
     res.status(200).json(fakeWeatherData);
-  } catch (error) {
-    console.error(error);  // Gunakan error agar tidak unused
+  } catch (_error) {   // pakai prefix _ supaya eslint tidak error
+    console.error(_error);
     res.status(500).json({ message: 'Internal server error' });
   }
 }
