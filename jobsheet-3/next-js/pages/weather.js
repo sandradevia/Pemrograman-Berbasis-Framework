@@ -1,48 +1,22 @@
-import { useState } from 'react';
+export default async function handler(req, res) {
+  const { city } = req.query;
 
-const Weather = () => {
-  const [city, setCity] = useState('');
-  const [weather, setWeather] = useState(null);
-  const [error, setError] = useState(null);
-
-  const getWeather = async () => {
-    try {
-      const res = await fetch(`/api/weather?city=${city}`);
-      const data = await res.json();
-
-      if (res.ok) {
-        setWeather(data);
-        setError(null);
-      } else {
-        setWeather(null);
-        setError(data.message);
-      }
-    } catch {
-      setError('Error fetching data');
+  try {
+    if (!city) {
+      return res.status(400).json({ message: 'City parameter is required' });
     }
-  };
 
-  return (
-    <div>
-      <h1>Cuaca</h1>
-      <input
-        type="text"
-        value={city}
-        onChange={(e) => setCity(e.target.value)}
-        placeholder="Masukkan nama kota"
-      />
-      <button onClick={getWeather}>Cari</button>
+    // Contoh: Simulasi response cuaca
+    const fakeWeatherData = {
+      name: city,
+      main: { temp: 25 },
+      weather: [{ description: 'Cerah' }],
+    };
 
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {weather && (
-        <div>
-          <h2>{weather.name}</h2>
-          <p>{weather.main.temp}°C</p>
-          <p>{weather.weather[0].description}</p>
-        </div>
-      )}
-    </div>
-  );
-};
-
-export default Weather;
+    // Kirim response sukses
+    res.status(200).json(fakeWeatherData);
+  } catch (error) {
+    console.error(error);  // Gunakan error agar tidak unused
+    res.status(500).json({ message: 'Internal server error' });
+  }
+}
