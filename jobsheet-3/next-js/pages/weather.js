@@ -17,9 +17,9 @@ const Weather = () => {
         setWeather(null);
         setError(data.message);
       }
-    } catch (err) {
-  setError('Error fetching data');
-}
+    } catch {
+      setError('Error fetching data');
+    }
   };
 
   return (
@@ -33,7 +33,7 @@ const Weather = () => {
       />
       <button onClick={getWeather}>Cari</button>
 
-      {error && <p>{error}</p>}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
       {weather && (
         <div>
           <h2>{weather.name}</h2>
