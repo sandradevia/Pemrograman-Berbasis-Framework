@@ -5,8 +5,8 @@ const ProductList = () => {
 
     useEffect(() => {
         const fetchProducts = async () => {
-            const Response = await fetch('api/products');
-            const products = await Response.json();
+            const response = await fetch('/api/products');
+            const products = await response.json();
             setProducts(products);
         };
         fetchProducts();
@@ -16,8 +16,8 @@ const ProductList = () => {
       <div>
         <h1>Daftar Produk</h1>
         <ul>
-            {products.map((products) => (
-                <li key={products.id}>{products.title}</li>
+            {products.map((product) => (
+                <li key={product.id}>{product.title}</li>
             ))}
         </ul>
       </div>
